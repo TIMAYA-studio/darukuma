@@ -45,8 +45,18 @@ nav{
 }
 
 .logo{
-  font-size:30px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:23px;
+  font-weight:bold;
   letter-spacing:.08em;
+}
+
+.logo img{
+  width:30px;
+  height:30px;
+  object-fit:contain;
 }
 
 .nav-links a{
@@ -256,7 +266,10 @@ footer{
 
 <header>
   <nav>
-    <div class="logo"><img src="images/logo.png"> だるくま。</div>
+    <div class="logo">
+      <img src="images/logo.png" alt="だるくま。ロゴ">
+      <span>だるくま。</span>
+    </div>
     <div class="nav-links">
       <a href="#stamps">スタンプ一覧</a>
       <a href="#about">だるくまとは</a>
