@@ -69,6 +69,19 @@ nav{
   font-size:13px;
 }
 
+.menu-button{
+  display:none;
+  background:#3a2a22;
+  color:white;
+  border:none;
+  border-radius:14px;
+  font-size:25px;
+  width:46px;
+  height:46px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.16);
+}
+
 .hero{
   display:grid;
   grid-template-columns:45% 55%;
@@ -240,7 +253,35 @@ footer{
 }
 
 @media(max-width:850px){
-  .nav-links{display:none}
+  .menu-button{
+  display:block;
+}
+
+.nav-links{
+  display:none;
+  position:absolute;
+  top:58px;
+  right:0;
+  background:#fffdf9;
+  border-radius:22px;
+  padding:14px;
+  width:210px;
+  box-shadow:0 15px 35px rgba(75,50,32,.18);
+  z-index:20;
+}
+
+.nav-links.active{
+  display:block;
+}
+
+.nav-links a{
+  display:block;
+  margin-left:0;
+  padding:13px 10px;
+  text-align:left;
+  font-size:14px;
+  color:#2b211c;
+}
 
   header::after{
   right:-260px;
@@ -289,15 +330,18 @@ footer{
 
 <header>
   <nav>
-    <div class="logo">
-      <img src="images/logo.png" alt="だるくま。ロゴ">
-      <span>だるくま。</span>
-    </div>
-    <div class="nav-links">
-      <a href="#stamps">スタンプ一覧</a>
-      <a href="#about">だるくまとは</a>
-      <a href="#creator">クリエイター</a>
-    </div>
+      <div class="logo">
+        <img src="images/logo.png" alt="だるくま。ロゴ">
+        <span>だるくま。</span>
+      </div>
+
+      <button class="menu-button" id="menuButton" aria-label="メニューを開く">☰</button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#stamps">スタンプ一覧</a>
+        <a href="#about">だるくまとは</a>
+        <a href="#creator">クリエイター</a>
+      </div>
   </nav>
 
   <section class="hero">
@@ -371,6 +415,21 @@ footer{
 <footer>
   © 2026 ちまや / Chimaya
 </footer>
+
+<script>
+const menuButton = document.getElementById("menuButton");
+const navLinks = document.getElementById("navLinks");
+
+menuButton.addEventListener("click", function(){
+  navLinks.classList.toggle("active");
+});
+
+document.querySelectorAll(".nav-links a").forEach(function(link){
+  link.addEventListener("click", function(){
+    navLinks.classList.remove("active");
+  });
+});
+</script>
 
 </body>
 </html>
