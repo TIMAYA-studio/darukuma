@@ -275,31 +275,31 @@ footer{
 @media(max-width:850px){
   .menu-button{
     display:block;
-    position:relative;
-    z-index:10001;
   }
 
-  .stamp-preview{
-    grid-template-columns:1fr;
+  .menu-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0);
+    z-index:998;
   }
 
-  .second-stamp{
-    margin-top:0;
+  .menu-overlay.active{
+    display:block;
   }
 
   .nav-links{
     display:none;
     position:fixed;
-    top:120px;
+    top:92px;
     right:22px;
-
+    width:220px;
     background:#fffdf9;
     border-radius:24px;
-    padding:16px;
-    width:220px;
-
+    padding:14px;
     box-shadow:0 18px 45px rgba(75,50,32,.24);
-    z-index:10000;
+    z-index:999;
   }
 
   .nav-links.active{
@@ -322,10 +322,10 @@ footer{
   }
 
   header::after{
-  right:-260px;
-  top:260px;
-  width:520px;
-  height:420px;
+    right:-260px;
+    top:260px;
+    width:520px;
+    height:420px;
   }
 
   .hero{
@@ -360,6 +360,10 @@ footer{
   .about{
     grid-template-columns:1fr;
   }
+
+  .stamp-preview{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
@@ -381,6 +385,8 @@ footer{
         <a href="#creator">クリエイター</a>
       </div>
   </nav>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
 
   <section class="hero">
     <div>
@@ -458,17 +464,35 @@ footer{
 <script>
 const menuButton = document.getElementById("menuButton");
 const navLinks = document.getElementById("navLinks");
+const menuOverlay = document.getElementById("menuOverlay");
 
-menuButton.addEventListener("click", function(){
-  navLinks.classList.toggle("active");
+function openMenu(){
+  navLinks.classList.add("active");
+  menuOverlay.classList.add("active");
+}
+
+function closeMenu(){
+  navLinks.classList.remove("active");
+  menuOverlay.classList.remove("active");
+}
+
+menuButton.addEventListener("click", function(event){
+  event.stopPropagation();
+
+  if(navLinks.classList.contains("active")){
+    closeMenu();
+  }else{
+    openMenu();
+  }
+});
+
+menuOverlay.addEventListener("click", function(){
+  closeMenu();
 });
 
 document.querySelectorAll(".nav-links a").forEach(function(link){
   link.addEventListener("click", function(){
-    navLinks.classList.remove("active");
+    closeMenu();
   });
 });
 </script>
-
-</body>
-</html>
